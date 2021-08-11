@@ -23,7 +23,12 @@ class FuncionarioEndpoint : FuncionarioServiceGrpc.FuncionarioServiceImplBase(){
 
         println(request!!)
 
-        val nome = request?.nome
+        var nome: String? = request.nome
+
+        if(!request.hasField(FuncionarioRequest.getDescriptor().findFieldByName("nome"))){
+            nome = "[Campo Nome Vazio]"
+        }
+
         val instant = LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant()
         val criadoEm = Timestamp.newBuilder().setSeconds(instant.epochSecond).setNanos(instant.nano).build()
 
