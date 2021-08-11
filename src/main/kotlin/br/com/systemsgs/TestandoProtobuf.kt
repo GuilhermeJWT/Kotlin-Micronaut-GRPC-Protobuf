@@ -1,5 +1,6 @@
 package br.com.systemsgs
 
+import java.io.FileInputStream
 import java.io.FileOutputStream
 
 fun main() {
@@ -19,4 +20,10 @@ fun main() {
 
     println(request)
     request.writeTo(FileOutputStream("funcionario-request.bin"))
+
+    val request2 = FuncionarioRequest.newBuilder().mergeFrom(FileInputStream("funcionario-request.bin"))
+    request2.setCargo(Cargo.GERENTE).build()
+
+    println(request2)
+
 }
